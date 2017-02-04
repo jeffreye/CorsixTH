@@ -662,6 +662,22 @@ tooltip.update_window = {
   ignore = "Ignore this update for now. You will be notified again when you next open CorsixTH",
 }
 
+-- Months
+months = {
+  "Jan",
+  "Fev",
+  "Mar",
+  "Abr",
+  "Mai",
+  "Jun",
+  "Jul",
+  "Ago",
+  "Set",
+  "Out",
+  "Nov",
+  "Dez",
+}
+
 map_editor_window = {
   pages = {
     inside = "Inside",
