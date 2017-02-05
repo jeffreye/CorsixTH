@@ -916,7 +916,8 @@ function World:setSpeed(speed)
     -- By default actions are not allowed when the game is paused.
     self.user_actions_allowed = TheApp.config.allow_user_actions_while_paused
   elseif self:getCurrentSpeed() == "Pause" then
-    self.user_actions_allowed = true
+    -- Not allowed when the game is running
+    self.user_actions_allowed = false
   end
 
   local currentSpeed = self:getCurrentSpeed()
@@ -934,7 +935,7 @@ function World:setSpeed(speed)
   end
 
   -- Set the blue filter according to whether the user can build or not.
-  TheApp.video:setBlueFilterActive(not self.user_actions_allowed)
+  -- TheApp.video:setBlueFilterActive(not self.user_actions_allowed)
   return false
 end
 
