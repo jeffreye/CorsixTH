@@ -50,6 +50,20 @@ local findLevelsInDir = function(path, items)
         }
       end
     end
+    
+    if file:match"%.sav$" then
+      print(file)
+      items[#items + 1] = {
+          name = file,
+          tooltip = _S.tooltip.custom_game_window.choose_game,
+          map_file = path .. file,
+          level_file = path .. file,
+          intro = false,
+          deprecated_variable_used = false,
+          is_sav = true
+        }
+    end
+
   end
 end
 
@@ -128,12 +142,23 @@ function UICustomGame:buttonLoadLevel()
     -- First make sure the map file exists.
     local item = self.items[self.chosen_index + self.scrollbar.value - 1]
     local app = self.ui.app
-    local _, errors = app:readMapDataFile(item.map_file)
-    if errors then
-      self.ui:addWindow(UIInformation(self.ui, {errors}))
-      return
+
+    if item.is_sav then
+      local status, err = pcall(app.load, app, item.map_file)
+      if not status then
+        err = _S.errors.load_prefix .. err
+        print(err)
+        app:loadMainMenu()
+        app.ui:addWindow(UIInformation(self.ui, {err}))
+      end
+    else
+      local _, errors = app:readMapDataFile(item.map_file)
+      if errors then
+        self.ui:addWindow(UIInformation(self.ui, {errors}))
+        return
+      end
+      app:loadLevel(item.level_file, nil, self.chosen_level_name, item.map_file, self.chosen_level_description)
     end
-    app:loadLevel(item.level_file, nil, self.chosen_level_name, item.map_file, self.chosen_level_description)
   end
 end
 
