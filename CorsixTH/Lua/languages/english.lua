@@ -105,6 +105,8 @@ menu_options = {
   twentyfour_hour_clock = "  24 HOUR CLOCK  "
 }
 
+menu_apply_config = "APPLY NEW CONFIGURATION"
+
 menu_options_game_speed = {
   pause               = "  (P) PAUSE  ",
   slowest             = "  (1) SLOWEST  ",
@@ -262,10 +264,10 @@ misc.not_yet_implemented = "(not yet implemented)"
 misc.no_heliport = "Either no diseases have been discovered yet, or there is no heliport on this map.  It might be that you need to build a reception desk and hire a receptionist"
 
 main_menu = {
-  new_game = "Campaign",
-  custom_campaign = "Custom Campaign",
+  new_game = "Start",
+  custom_campaign = "Custom Game",
   custom_level = "Single Scenario",
-  continue = "Continue Game",
+  continue = "Continue",
   load_game = "Load Game",
   options = "Settings",
   map_edit = "Map Editor",
@@ -275,7 +277,7 @@ main_menu = {
 }
 
 tooltip.main_menu = {
-  new_game = "Start the first level on the campaign",
+  new_game = "Start the first game",
   custom_campaign = "Play a campaign created by the community",
   custom_level = "Build your hospital in a single scenario",
   continue = "Continue your latest saved game",

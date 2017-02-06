@@ -49,6 +49,9 @@ function GameUI:GameUI(app, local_hospital, map_editor)
     self.bottom_panel = UIBottomPanel(self)
     self.bottom_panel:addWindow(self.adviser)
     self:addWindow(self.bottom_panel)
+
+    self.observation_tools = UIObservation(self)
+    self:addWindow(self.observation_tools)
   end
 
   -- UI widgets
@@ -1093,6 +1096,8 @@ function GameUI:afterLoad(old, new)
   if old < 115 then
     self.shake_screen_intensity = 0
   end
+
+
   return UI.afterLoad(self, old, new)
 end
 

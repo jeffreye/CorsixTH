@@ -271,6 +271,25 @@ function Map:load(level, difficulty, level_name, map_file, level_intro, map_edit
   return objects
 end
 
+function Map:applyConfiguration( level )
+    -- Load CorsixTH base configuration for all levels.
+  -- We want to load the file again each time.
+  local function file (filename)
+      local f = assert(loadfile(filename))
+      return f()
+    end
+  local path = debug.getinfo(1, "S").source:sub(2, -12)
+  local result = file(path .. "Lua" .. pathsep .. "base_config.lua")
+  
+  local base_config = result
+  assert(base_config, "No base config has been loaded!")
+  local errors, result = self:loadMapConfig(level, base_config, true)
+  if errors then
+    print(errors)
+  end
+  self.level_config = result
+end
+
 --[[! Sets the plot owner of the given plot number to the given new owner. Makes sure
       that any room adjacent to the new plot have walls in all directions after the purchase.
 !param plot_number (int) Number of the plot to change owner of. Plot 0 is the outside and

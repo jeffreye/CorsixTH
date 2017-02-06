@@ -618,6 +618,8 @@ function App:loadLevel(level, difficulty, level_name, level_file, level_intro, m
   self.world = World(self)
   self.world:createMapObjects(map_objects)
 
+  self.world:setSpeed("Pause")
+
   -- Enable / disable SoundEffects
   self.audio:playSoundEffects(self.config.play_sounds)
 

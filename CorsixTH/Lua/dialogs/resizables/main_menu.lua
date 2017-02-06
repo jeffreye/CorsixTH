@@ -37,9 +37,10 @@ function UIMainMenu:UIMainMenu(ui)
   -- First define all menu entries with a label, a callback and a tooltip.
   -- That way we can call the UIResizable constructor with a good height argument.
   local menu_items = {
-    {_S.main_menu.new_game,        self.buttonNewGame,        _S.tooltip.main_menu.new_game},
-    {_S.main_menu.custom_campaign, self.buttonCustomCampaign, _S.tooltip.main_menu.custom_campaign},
-    {_S.main_menu.custom_level,    self.buttonCustomGame,     _S.tooltip.main_menu.custom_level},
+    -- {_S.main_menu.new_game,        self.buttonNewGame,        _S.tooltip.main_menu.new_game},
+    -- {_S.main_menu.custom_campaign, self.buttonCustomCampaign, _S.tooltip.main_menu.custom_campaign},
+    {_S.main_menu.new_game,    self.buttonNewGame,     _S.tooltip.main_menu.new_game},
+    -- {_S.main_menu.custom_level,    self.buttonCustomGame,     _S.tooltip.main_menu.custom_level},
     {_S.main_menu.continue,        self.buttonContinueGame,   _S.tooltip.main_menu.continue},
     {_S.main_menu.load_game,       self.buttonLoadGame,       _S.tooltip.main_menu.load_game},
     {_S.main_menu.options,         self.buttonOptions,        _S.tooltip.main_menu.options},
@@ -99,8 +100,18 @@ function UIMainMenu:draw(canvas, x, y)
 end
 
 function UIMainMenu:buttonNewGame()
-  local window = UINewGame(self.ui)
-  self.ui:addWindow(window)
+  -- local window = UINewGame(self.ui)
+  -- self.ui:addWindow(window)
+  local inital_game_path = TheApp.level_dir.."Initial Game.sav"
+
+  local app = self.ui.app
+  local status, err = pcall(app.load, app, inital_game_path)
+  if not status then
+    err = _S.errors.load_prefix .. err
+    print(err)
+    app:loadMainMenu()
+    app.ui:addWindow(UIInformation(self.ui, {err}))
+  end
 end
 
 function UIMainMenu:buttonCustomCampaign()

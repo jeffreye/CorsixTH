@@ -719,6 +719,12 @@ function UIMenuBar:makeGameMenu(app)
     :appendItem(_S.menu_charts.policy, function() self.ui.bottom_panel:dialogPolicy(true) end)
     :appendItem(_S.menu_charts.briefing, function() self.ui:showBriefing() end)
   )
+
+  self:addMenu(_S.menu_apply_config, UIMenu()
+  :appendItem(_S.menu_apply_config, function() self.ui:addWindow(UILoadMapConfiguration(self.ui)) end)
+  )
+
+
   local function _(s) return "  " .. s:upper() .. "  " end
   local function limit_camera(item)
     app.ui:limitCamera(item.checked)
