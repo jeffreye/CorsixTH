@@ -33,9 +33,6 @@ function UILoadMapConfiguration:UILoadMapConfiguration(ui)
   -- is the thing you want to play soon again.
   self.control:sortByDate()
 
-
-  ui.observation_tools = UIObservation(ui)
-  ui:addWindow(ui.observation_tools)
 end
 
 function UILoadMapConfiguration:choiceMade(name)

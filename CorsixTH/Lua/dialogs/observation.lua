@@ -63,7 +63,7 @@ function UIObservation:UIObservation(ui)
   self.world = app.world
   self.on_top = false
   self.width = 180
-  self.height = 500
+  self.height = 220
   self:setDefaultPosition(0, 0.5)
 
   self.observation_panel =
@@ -77,11 +77,14 @@ function UIObservation:UIObservation(ui)
   :setAutoClip(true)
   :makeTextbox(
   --[[persistable:new_game_confirm_time]]function()
+    if not self.world:isPaused() then
+      return
+    end
     local time = self.time_textbox.text
-    if not time:find("%i") then
+    if tonumber(time) == nil then
       self.time_textbox:setText(tostring(self.time_limit))
     else
-      self.time_limit = time
+      self.time_limit = tonumber(time)
     end
   end,
   --[[persistable:new_game_abort_time]]function() self.time_textbox:setText(tostring(self.time_limit)) end)
@@ -93,11 +96,11 @@ function UIObservation:UIObservation(ui)
 
   -- "load" button
   self:addBevelPanel(0, 150, 180, 40, col_bg):setLabel("Load Last Save")
-    :makeButton(0, 0, 180, 40, nil, self.buttonBack)
+    :makeButton(0, 0, 180, 40, nil, self.buttonLoad)
 
   -- "save" button
   self:addBevelPanel(0, 200, 180, 40, col_bg):setLabel("Save Current State")
-    :makeButton(0, 0, 180, 40, nil, self.buttonBack)
+    :makeButton(0, 0, 180, 40, nil, self.buttonSave)
 end
 
 function UIObservation:hitTest(x, y, x_offset)

@@ -220,12 +220,16 @@ end
 
 --NB: Call after any changes to TH.surface
 function MoviePlayer:allocatePictureBuffer()
-  self.moviePlayer:allocatePictureBuffer()
+  if self.moviePlayer ~= nil then
+    self.moviePlayer:allocatePictureBuffer()
+  end
 end
 
 --NB: Call before any changes to TH.surface
 function MoviePlayer:deallocatePictureBuffer()
-  self.moviePlayer:deallocatePictureBuffer()
+  if self.moviePlayer ~= nil then
+    self.moviePlayer:deallocatePictureBuffer()
+  end
 end
 
 function MoviePlayer:onMovieOver()
@@ -273,5 +277,7 @@ function MoviePlayer:refresh()
 end
 
 function MoviePlayer:updateRenderer()
-  self.moviePlayer:setRenderer(self.video)
+  if self.moviePlayer ~= nil then
+    self.moviePlayer:setRenderer(self.video)
+  end
 end
