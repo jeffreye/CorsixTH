@@ -106,6 +106,9 @@ menu_options = {
 }
 
 menu_apply_config = "APPLY NEW CONFIGURATION"
+menu_apply_default_day = "50 hours in a day"
+menu_apply_accurate_day = "480 hours in a day"
+menu_apply_schedule = "Apply schedule"
 
 menu_options_game_speed = {
   pause               = "  (P) PAUSE  ",

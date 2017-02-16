@@ -720,8 +720,38 @@ function UIMenuBar:makeGameMenu(app)
     :appendItem(_S.menu_charts.briefing, function() self.ui:showBriefing() end)
   )
 
+  local function default_world_day()
+    app.world.hours_per_day = 50
+    app.world:changeTickRates({
+      ["Pause"]              = {0, 1},
+      ["Slowest"]            = {1, 9},
+      ["Slower"]             = {1, 5},
+      ["Normal"]             = {1, 3},
+      ["Max speed"]          = {1, 1},
+      ["And then some more"] = {3, 1},
+      ["Speed Up"]           = {4, 1},
+    })
+  end
+
+  local function accurate_world_day()
+    app.world.hours_per_day = 480
+    app.world:changeTickRates({
+      ["Pause"]              = {0, 1},
+      ["Slowest"]            = {1, 3},
+      ["Slower"]             = {1, 1},
+      ["Normal"]             = {3, 1},
+      ["Max speed"]          = {5, 1},
+      ["And then some more"] = {8, 1},
+      ["Speed Up"]           = {20, 1},
+    })
+  end
+  
+
   self:addMenu(_S.menu_apply_config, UIMenu()
   :appendItem(_S.menu_apply_config, function() self.ui:addWindow(UILoadMapConfiguration(self.ui)) end)
+  :appendItem(_S.menu_apply_default_day, default_world_day)
+  :appendItem(_S.menu_apply_accurate_day, accurate_world_day)
+  :appendItem(_S.menu_apply_schedule, function() self.ui:addWindow(UILoadAppointment(self.ui)) end)
   )
 
 

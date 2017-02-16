@@ -871,6 +871,12 @@ local tick_rates = {
   ["Speed Up"]           = {4, 1},
 }
 
+function World:changeTickRates(rates)
+  tick_rates = rates;
+  print(tick_rates["Normal"])
+  print(self.hours_per_day)
+end
+
 -- Return the length of the current month
 function World:getCurrentMonthLength()
   return month_length[self.month]
@@ -1157,10 +1163,18 @@ function World:onEndDay()
   end
   -- Any patients tomorrow?
   self.spawn_hours = {}
-  if self.spawn_dates[self.day] then
-    for _ = 1, self.spawn_dates[self.day] do
-      local hour = math.random(1, self.hours_per_day)
-      self.spawn_hours[hour] = self.spawn_hours[hour] and self.spawn_hours[hour] + 1 or 1
+  if self.scheduled_appointments ~= nil then
+    for i = 1, #self.scheduled_appointments do
+      local hrs = math.round(math.n_random(self.scheduled_appointments[i],5))
+      self.spawn_hours[hrs] = self.spawn_hours[hrs] and self.spawn_hours[hrs] + 1 or 1
+      print(hrs .. " will be " .. self.spawn_hours[hrs] .. " visitors")
+    end
+  else
+    if self.spawn_dates[self.day] then
+      for _ = 1, self.spawn_dates[self.day] do
+        local hour = math.random(1, self.hours_per_day)
+        self.spawn_hours[hour] = self.spawn_hours[hour] and self.spawn_hours[hour] + 1 or 1
+      end
     end
   end
   -- TODO: Do other regular things? Such as checking if any room needs
@@ -1218,6 +1232,16 @@ function World:onEndMonth()
     end
   end
   self.current_tick_entity = nil
+end
+
+-- Apply a appointment list on which time patients arrive
+function World:applySpawnTable(scheduled_appointments_in_hours)
+  self.scheduled_appointments = scheduled_appointments_in_hours
+  self.spawn_hours = {}
+  for i = 1, #self.scheduled_appointments do
+    local hrs = math.round(math.n_random(self.scheduled_appointments[i],5))
+    self.spawn_hours[hrs] = self.spawn_hours[hrs] and self.spawn_hours[hrs] + 1 or 1
+  end
 end
 
 -- Called when a month ends. Decides on which dates patients arrive
