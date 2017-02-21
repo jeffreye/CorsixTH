@@ -863,12 +863,12 @@ end
 -- happens.
 local tick_rates = {
   ["Pause"]              = {0, 1},
-  ["Slowest"]            = {1, 9},
-  ["Slower"]             = {1, 5},
-  ["Normal"]             = {1, 3},
-  ["Max speed"]          = {1, 1},
-  ["And then some more"] = {3, 1},
-  ["Speed Up"]           = {4, 1},
+  ["Slowest"]            = {1, 3},
+  ["Slower"]             = {1, 1},
+  ["Normal"]             = {3, 1},
+  ["Max speed"]          = {5, 1},
+  ["And then some more"] = {8, 1},
+  ["Speed Up"]           = {20, 1},
 }
 
 function World:changeTickRates(rates)
@@ -2695,6 +2695,9 @@ function World:afterLoad(old, new)
       self.next_earthquake.damage_timer = earthquake_damage_time
       self.next_earthquake.warning_timer = 0
     end
+  end
+  if old < 118 then
+    self.hours_per_day = 480
   end
 
   self.savegame_version = new
