@@ -57,6 +57,10 @@ function Patient:Patient(...)
   -- The "size" entry holds the length of the array (that is, SIZE).
   -- Variable gets automatically initialized on first day.
   self.health_history = nil
+  
+  --Patient stats for waiting and cycle
+  self.cycle_time = nil
+  self.waiting_time = nil
 end
 
 function Patient:onClick(ui, button)
@@ -583,16 +587,29 @@ end
 
 -- Despawns the patient and removes them from the hospital
 function Patient:despawn()
+  self.world:addPatientStats(self)
   self.hospital:removePatient(self)
   Humanoid.despawn(self)
+end
+
+--Determines if the patient is inside the hospital or not
+function Patient:isInHospital()
+	return self.hospital:isInHospital(self.tile_x, self.tile_y)
 end
 
 -- This function handles changing of the different attributes of the patient.
 -- For example if thirst gets over a certain level (now: 0.7), the patient
 -- tries to find a drinks machine nearby.
 function Patient:tickDay()
+  if self:isInHospital() then
+    self.cycle_time = self.cycle_time or 0
+	self.cycle_time = self.cycle_time + 1
+  end
+
   -- First of all it may happen that this patient is tired of waiting and goes home.
   if self.waiting then
+    self.waiting_time = self.waiting_time or 0
+	self.waiting_time = self.waiting_time + 1
     self.waiting = self.waiting - 1
     if self.waiting == 0 then
       self:goHome("kicked")

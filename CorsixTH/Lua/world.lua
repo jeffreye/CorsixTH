@@ -537,6 +537,30 @@ function World:spawnPatient(hospital)
   return patient
 end
 
+function World:addPatientStats(patient)
+  if not self.patient_stats then
+	self.patient_stats = {}
+  end
+  local toAdd = {}
+  toAdd["cycle_time"] = patient.cycle_time
+  toAdd["waiting_time"] = patient.waiting_time
+  self.patient_stats[#self.patient_stats + 1] = toAdd
+end
+
+function World:displayPatientStats()
+  if self.patient_stats_window then
+	self.patient_stats_window:close()
+  self.patient_stats_window = nil
+  else
+	self.patient_stats_window = UIPatientStats(self.ui, self)
+	self.ui:addWindow(self.patient_stats_window)
+  end
+end
+
+function World:resetPatientStats()
+  self.patient_stats = nil
+end
+
 --A VIP is invited (or he invited himself) to the player hospital.
 --!param name Name of the VIP
 function World:spawnVIP(name)
@@ -2698,6 +2722,11 @@ function World:afterLoad(old, new)
   end
   if old < 118 then
     self.hours_per_day = 480
+  end
+  
+  if old < 119 then
+    self.ui:addKeyHandler({"alt", "G"}, self, self.displayPatientStats)
+	self.ui:addKeyHandler({"alt", "J"}, self, self.resetPatientStats)
   end
 
   self.savegame_version = new
