@@ -33,7 +33,7 @@ local col_bg = {
 }
 
 function UIPatientStats:UIPatientStats(ui, world)
-  self:UIResizable(ui, 225, 40, col_bg)
+  self:UIResizable(ui, 225, 50, col_bg)
 
   local app = ui.app
   self.ui = ui
@@ -80,13 +80,16 @@ function UIPatientStats:draw(canvas, x, y)
   
   x, y = self.x + x, self.y + y
   local text_total = "Total patients in hospital: " .. num_patients_in_hospital
-  self.white_font:drawWrapped(canvas, text_total, x + 10, y + 10, self.width - 20)
+  self.white_font:drawWrapped(canvas, text_total, x + 10, y + 5, self.width - 20)
+  
+  local text_complete = "Total patients complete: " .. num_patients_with_stats
+  self.white_font:drawWrapped(canvas, text_complete, x + 10, y + 15, self.width - 20)
   
   if cycle_total and waiting_total then
     local text_cycle = "Cycle Time Average: " .. string.format("%.2f", cycle_total)
-    self.white_font:drawWrapped(canvas, text_cycle, x + 10, y + 20, self.width - 20)
+    self.white_font:drawWrapped(canvas, text_cycle, x + 10, y + 25, self.width - 20)
   
     local text_waiting = "Wait Time Average: " .. string.format("%.2f", waiting_total)
-    self.white_font:drawWrapped(canvas, text_waiting, x + 10, y + 30, self.width - 20)
+    self.white_font:drawWrapped(canvas, text_waiting, x + 10, y + 35, self.width - 20)
   end
 end
