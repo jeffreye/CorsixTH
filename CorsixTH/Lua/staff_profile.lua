@@ -183,6 +183,10 @@ function StaffProfile:randomiseOrganical()
     self.hair_index = math.random(13, 14)
     self.face_index = math.random(13, 14)
     self.chin_index = math.random(13, 14)
+  elseif self.humanoid_class == "Clerk" then
+    self.hair_index = math.random(13, 14)
+    self.face_index = math.random(10, 12)
+    self.chin_index = math.random(13, 14)
   elseif self.humanoid_class == "Handyman" then
     self.hair_index = math.random(15, 17)
     self.face_index = math.random(15, 17)
@@ -212,6 +216,7 @@ local conf_id = {
   Doctor = 1,
   Handyman = 2,
   Receptionist = 3,
+  Clerk = 4,
 }
 
 local ability_conf_id = {

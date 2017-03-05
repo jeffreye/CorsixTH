@@ -722,3 +722,5 @@ map_editor_window = {
 
 options_window.change_resolution = "Change resolution"
 tooltip.options_window.change_resolution = "Change the window resolution to the dimensions entered on the left"
+tooltip.hire_staff_window.clerks = "Clerk"
+staff_class.clerk = "Clerk"

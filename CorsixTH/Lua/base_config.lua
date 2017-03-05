@@ -43,6 +43,7 @@ local configuration = {
     {MinSalary = 75}, -- Doctor
     {MinSalary = 25}, -- Handyman
     {MinSalary = 20}, -- Receptionist
+    {MinSalary = 30}, -- Clerk
   },
   gbv = {
     SalaryAdd = {
@@ -364,7 +365,7 @@ local configuration = {
   },
 
   staff_levels = {
-    [0] = {Month = 0, Nurses = 8, Doctors = 8, Handymen = 3, Receptionists = 2,
+    [0] = {Month = 0, Nurses = 8, Doctors = 8, Handymen = 3, Receptionists = 2, Clerks = 3, 
            ShrkRate = 10, SurgRate = 10, RschRate = 10, ConsRate = 10, JrRate = 5},
   },
 

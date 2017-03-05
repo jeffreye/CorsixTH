@@ -30,7 +30,7 @@ function UIHireStaff:UIHireStaff(ui)
   self.world = ui.app.world
   self.ui = ui
   self.width = 242
-  self.height = 323
+  self.height = 402
   self:setDefaultPosition(100, 100)
   self.panel_sprites = ui.app.gfx:loadSpriteTable("QData", "Req11V", true)
   self.white_font = ui.app.gfx:loadFont("QData", "Font01V")
@@ -42,7 +42,8 @@ function UIHireStaff:UIHireStaff(ui)
   self:addPanel(253, 0,   0)
   self:addPanel(254, 0,  83)
   self:addPanel(254, 0, 162)
-  self:addPanel(255, 0, 241)
+  self:addPanel(254, 0, 241)
+  self:addPanel(255, 0, 320)
 
   -- Left hand side tabs
   local --[[persistable:hire_staff_category]] function category(name, state, btn)
@@ -61,6 +62,7 @@ function UIHireStaff:UIHireStaff(ui)
     self:addPanel(266, 8,  87):makeToggleButton(0, 0, 40, 69, 267, category, "Nurse"):setTooltip(_S.tooltip.hire_staff_window.nurses),
     self:addPanel(268, 8, 166):makeToggleButton(0, 0, 40, 69, 269, category, "Handyman"):setTooltip(_S.tooltip.hire_staff_window.handymen),
     self:addPanel(270, 8, 245):makeToggleButton(0, 0, 40, 69, 271, category, "Receptionist"):setTooltip(_S.tooltip.hire_staff_window.receptionists),
+    self:addPanel(270, 8, 324):makeToggleButton(0, 0, 40, 69, 271, category, "Clerk"):setTooltip(_S.tooltip.hire_staff_window.clerks),
   }
 
   -- Right hand side

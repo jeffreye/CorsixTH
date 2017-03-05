@@ -695,6 +695,7 @@ local staff_to_make = {
   {class = "Nurse",        name = "nurse",        conf = "Nurses"       },
   {class = "Handyman",     name = "handyman",     conf = "Handymen"     },
   {class = "Receptionist", name = "receptionist", conf = "Receptionists"},
+  {class = "Clerk",        name = "clerk",        conf = "Clerks"       },
 }
 function World:makeAvailableStaff(month)
   local conf_entry = 0
