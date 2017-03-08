@@ -49,7 +49,6 @@ function UILoadAppointment:choiceMade(filename)
     local n = tonumber(word)
     if(n) ~= nil then
       appointments[#appointments + 1] = n
-      print(n .. ",")
     else
       ui:addWindow(UIInformation(ui, {"File contains non-number strings."}))
       return

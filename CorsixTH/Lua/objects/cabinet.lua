@@ -33,11 +33,13 @@ object.usage_animations = {
   north = {
     in_use = {
       Doctor = 88,
+      Clerk = 88,
     },
   },
   east = {
     in_use = {
       Doctor = 90,
+      Clerk = 90,
     },
   },
 }

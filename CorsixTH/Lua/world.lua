@@ -1192,7 +1192,6 @@ function World:onEndDay()
     for i = 1, #self.scheduled_appointments do
       local hrs = math.round(math.n_random(self.scheduled_appointments[i],5))
       self.spawn_hours[hrs] = self.spawn_hours[hrs] and self.spawn_hours[hrs] + 1 or 1
-      print(hrs .. " will be " .. self.spawn_hours[hrs] .. " visitors")
     end
   else
     if self.spawn_dates[self.day] then

@@ -47,22 +47,16 @@ local Administrative = _G["Administrative"]
 
 function Administrative:Administrative(...)
   self:Room(...)
+  self.forms = {} -- this would be set by pickup forms action
 end
 
-function Administrative:onHumanoidEnter(humanoid)
-  self.humanoids[humanoid] = true
-  self:tryAdvanceQueue()
-  humanoid:setDynamicInfoText("")
-  if class.is(humanoid, Staff) then
-    -- Receptionists cannot enter, so we do not have to worry about them
-    -- If it is a handyman and he is here to do a job, let him pass
-    if not humanoid.on_call then
-      -- humanoid:setNextAction(UseAdministrativeAction())
-      self.door.queue.visitor_count = self.door.queue.visitor_count + 1
-    end
-  else
-    -- Other humanoids shouldn't be entering, so don't worry about them
-  end
+function Administrative:commandEnteringStaff(humanoid)
+  self:doStaffUseCycle(humanoid)
+  return Room.commandEnteringStaff(self, humanoid, true)
+end
+
+function Administrative:doStaffUseCycle(humanoid)
+  humanoid:setNextAction(CheckFormsAction())
 end
 
 return room

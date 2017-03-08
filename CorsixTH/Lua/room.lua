@@ -633,7 +633,7 @@ function Room:canHumanoidEnter(humanoid)
   -- By default, patients can only enter if there are sufficient staff and not
   -- too many patients.
   if class.is(humanoid, Patient) and not self.needs_repair then
-    return self:testStaffCriteria(self:getRequiredStaffCriteria()) and self:getPatientCount() < self.maximum_patients
+    return self:testStaffCriteria(self:getRequiredStaffCriteria()) and self:getPatientCount() < self.maximum_patients and humanoid.form_filed
   end
   -- By default, other classes of humanoids cannot enter
   return false

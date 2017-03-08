@@ -709,6 +709,8 @@ function Staff:fulfillsCriterion(criterion)
     if class == "Handyman" then
       return true
     end
+  elseif criterion == class then
+    return true 
   else
     error("Unknown criterion " .. criterion)
   end

@@ -35,30 +35,36 @@ object.usage_animations = {
     begin_use = {
       Doctor =   56,
       Nurse  = 3240,
+      Clerk  = 3240,
     },
     in_use = {
       -- Note: 72 (normal usage) should happen a lot more often than 718 (head
       -- scratching), hence it appears in the list many times.
       Doctor = {72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 718},
       Nurse  = 3256,
+      Clerk  = 3256,
     },
     finish_use = {
       Doctor =   64,
       Nurse  = 3248,
+      Clerk  = 3248,
     },
   },
   east = {
     begin_use = {
       Doctor =   58,
       Nurse  = 3242,
+      Clerk  = 3242,
     },
     in_use = {
       Doctor =   74, -- No analogue to 718 :(
       Nurse  = 3258,
+      Clerk  = 3258,
     },
     finish_use = {
       Doctor =   66,
       Nurse  = 3250,
+      Clerk  = 3250,
     },
   },
 }

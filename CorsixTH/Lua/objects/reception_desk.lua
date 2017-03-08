@@ -80,6 +80,7 @@ function ReceptionDesk:ReceptionDesk(...)
   self.queue:setMaxQueue(20) -- larger queues for reception desk
   self.hover_cursor = TheApp.gfx:loadMainCursor("queue")
   self.queue_advance_timer = 0
+  self.forms = {}
 end
 
 function ReceptionDesk:onClick(ui, button)
@@ -100,6 +101,7 @@ function ReceptionDesk:tick()
       reset_timer = false
       if self.queue_advance_timer >= 4 + self.world.hours_per_day * (1.0 - self.receptionist.profile.skill) then
         reset_timer = true
+        self:fillOutForm(queue_front)
         if queue_front.next_room_to_visit then
           queue_front:queueAction(SeekRoomAction(queue_front.next_room_to_visit.room_info.id))
         else
@@ -140,6 +142,44 @@ function ReceptionDesk:tick()
     self.queue_advance_timer = 0
   end
   return Object.tick(self)
+end
+
+-- Records patient's ID
+function ReceptionDesk:fillOutForm(humanoid)
+  table.insert(self.forms,humanoid)
+  if self.clerk then
+    return
+  end
+
+  -- Find a clerk to take the form
+  local nearest_staff, nearest_d
+  local world = self.world
+  local use_x, use_y = self:getSecondaryUsageTile()
+  for _, entity in ipairs(self.world.entities) do
+    if entity.humanoid_class == "Clerk" and not entity.working and not entity.fired then
+      local distance = world.pathfinder:findDistance(entity.tile_x, entity.tile_y, use_x, use_y)
+      if not nearest_d or distance < nearest_d then
+        nearest_staff = entity
+        nearest_d = distance
+      end
+    end
+  end
+  if nearest_staff then
+    self.clerk = nearest_staff
+    nearest_staff:setNextAction(PickupFormsAction(self))
+  end
+end
+
+function ReceptionDesk:getFormsNumber()
+  return #self.forms
+end
+
+function ReceptionDesk:takeAllForms()
+  self.clerk = nil
+
+  local forms = self.forms
+  self.forms = {}
+  return forms
 end
 
 --! Reception desk looks for a receptionist.
