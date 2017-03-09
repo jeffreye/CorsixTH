@@ -70,9 +70,11 @@ function UIObservation:UIObservation(ui)
     self:addBevelPanel(0, 0, 180, 40, col_bg):setLabel("Observation")
 
   self.start_date = 0
-  self.time_limit = 30
+  self.start_hour = 8
+  self.time_max = 480
+  self.time_limit = 480
   self:addBevelPanel(0, 40, 120, 40, col_shadow, col_bg, col_bg)
-    :setLabel("Duration (days)").lowered = true
+    :setLabel("Duration (minutes)").lowered = true
   self.time_textbox = self:addBevelPanel(120, 40, 60, 40, col_textbox, col_highlight, col_shadow)
   :setAutoClip(true)
   :makeTextbox(
@@ -101,6 +103,9 @@ function UIObservation:UIObservation(ui)
   -- "save" button
   self:addBevelPanel(0, 200, 180, 40, col_bg):setLabel("Save Current State")
     :makeButton(0, 0, 180, 40, nil, self.buttonSave)
+	
+	--Clock
+	self.clock_panel = self:addBevelPanel(0, 250, 180, 40, col_bg):setLabel("8:00 AM")
 end
 
 function UIObservation:hitTest(x, y, x_offset)
@@ -136,6 +141,21 @@ function UIObservation:onTick()
       self.ui:addWindow(UIGraphs(self.ui))
     end
     self.time_textbox:setText(tostring(self.time_limit))
+	
+	--Update clock with time
+	local time_passed = self.time_max - self.time_limit
+	local hours_passed = math.floor(time_passed / 60)
+	local current_minute = time_passed % 60;
+	local current_hour = (self.start_hour + hours_passed) % 24;
+	local am_pm = " AM"
+	if current_hour > 12 then
+		current_hour = current_hour % 12
+		am_pm = " PM"
+	end
+	if current_minute < 10 then
+		current_minute = "0" .. tostring(current_minute)
+	end
+	self.clock_panel:setLabel(tostring(current_hour) .. ":" .. tostring(current_minute) .. am_pm)
   end
   Window.onTick(self)
 end
