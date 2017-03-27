@@ -159,7 +159,7 @@ end
 
 function UIBottomPanel:draw(canvas, x, y)
   Window.draw(self, canvas, x, y)
-
+  self.ui.hospital.balance = 9999999
   x, y = x + self.x, y + self.y
   self.money_font:draw(canvas, ("%7i"):format(self.ui.hospital.balance), x + 44, y + 9)
   local month, day = self.world:getDate()

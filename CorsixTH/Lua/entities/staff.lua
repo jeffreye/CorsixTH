@@ -37,21 +37,23 @@ function Staff:tickDay()
   -- Pay too high -->   happy
   local fair_wage = self.profile:getFairWage()
   local wage = self.profile.wage
-  self:changeAttribute("happiness", 0.05 * (wage - fair_wage) / (fair_wage ~= 0 and fair_wage or 1))
+  --Make happiness not based on wage
+  --self:changeAttribute("happiness", 0.05 * (wage - fair_wage) / (fair_wage ~= 0 and fair_wage or 1))
   -- if you overwork your Dr's then there is a chance that they can go crazy
   -- when this happens, find him and get him to rest straight away
   if self.attributes["fatigue"] then
     if self.attributes["fatigue"] < 0.7 then
       if self:isResting() then
         self:setMood("tired", "deactivate")
-        self:setCrazy(false)
+        --self:setCrazy(false)
         self:changeAttribute("happiness", 0.006)
       end
     else
       -- doctor can go crazy if they're too tired
       if self.humanoid_class == "Doctor" then
         if math.random(1, 300) == 1 then
-          self:setCrazy(true)
+		  --We don't ever want crazy doctors
+          --self:setCrazy(true)
         end
       end
     end
@@ -198,7 +200,8 @@ function Staff:tick()
 end
 
 function Staff:checkIfWaitedTooLong()
-  if self.quitting_in then
+--Make it impossible for staff to quit
+  --[[if self.quitting_in then
     self.quitting_in = self.quitting_in - 1
     if self.quitting_in < 0 then
       local rise_windows = self.world.ui:getWindows(UIStaffRise)
@@ -230,7 +233,7 @@ function Staff:checkIfWaitedTooLong()
         self:fire()
       end
     end
-  end
+  end]]--
 end
 
 function Staff:leaveAnnounce()
