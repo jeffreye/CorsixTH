@@ -31,7 +31,6 @@ function PickupFormsAction:PickupFormsAction(desk)
 end
 
 local function action_pickup_forms_start(action, humanoid)
-  print('pickup')
   local world = humanoid.world
   local best_desk = action.reception_desk
   humanoid.working = true
@@ -76,7 +75,6 @@ local function action_pickup_forms_start(action, humanoid)
       
       -- picking them up
       humanoid.forms = best_desk:takeAllForms()
-      print('take forms #' .. #humanoid.forms)
 
       -- returning back
       humanoid:queueAction(room:createEnterAction(humanoid))
@@ -84,7 +82,6 @@ local function action_pickup_forms_start(action, humanoid)
     else
       -- Let the staff meander
       humanoid:queueAction(MeanderAction())
-      print('meander')
     end
   else
     -- No reception desk found. One will probably be built soon, somewhere in

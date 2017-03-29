@@ -897,9 +897,7 @@ local tick_rates = {
 }
 
 function World:changeTickRates(rates)
-  tick_rates = rates;
-  print(tick_rates["Normal"])
-  print(self.hours_per_day)
+  tick_rates = rates
 end
 
 -- Return the length of the current month
