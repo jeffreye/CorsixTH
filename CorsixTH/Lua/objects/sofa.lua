@@ -35,21 +35,25 @@ object.usage_animations = {
     begin_use = {
       Doctor   = 2178,
       Nurse    = 3878,
+      Clerk    = 3878,
       Handyman = 3570,
     },
     begin_use_2 = {
       Doctor   = 2186,
       Nurse    = 3886,
+      Clerk    = 3886,
       Handyman = 3578,
     },
     in_use = {
       Doctor   = 2208,
       Nurse    = 4780, -- also 4786, duplicate?
+      Clerk    = 4780,
       Handyman = 4772,
     },
     finish_use = {
       Doctor   = 2194,
       Nurse    = 3894,
+      Clerk    = 3894,
       Handyman = 3586,
     },
   },
@@ -57,21 +61,25 @@ object.usage_animations = {
     begin_use = {
       Doctor   = 2180,
       Nurse    = 3880,
+      Clerk    = 3880,
       Handyman = 3572,
     },
     begin_use_2 = {
       Doctor   = 2188,
       Nurse    = 3888,
+      Clerk    = 3888,
       Handyman = 3580,
     },
     in_use = {
       Doctor   = 2210,
       Nurse    = 4782, -- also 4784, duplicate?
+      Clerk    = 4782,
       Handyman = 4774, -- also 4776, duplicate?
     },
     finish_use = {
       Doctor   = 2196,
       Nurse    = 3896,
+      Clerk    = 3896,
       Handyman = 3588,
     },
   },

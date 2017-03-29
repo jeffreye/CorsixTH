@@ -40,12 +40,14 @@ object.usage_animations = {
     in_use = {
       Doctor   = 3700, -- also 3692, standing still in front of the game
       Nurse    = 4764,
+      Clerk    = 4764,
     },
   },
   south = { -- duplicate of north
     in_use = {
       Doctor   = 3700,
       Nurse    = 4764,
+      Clerk    = 4764,
     },
   },
 }
