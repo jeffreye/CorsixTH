@@ -297,66 +297,9 @@ end
 --! Load goals to win and lose from the map, and store them in 'self.goals'.
 --! Also set 'self.winning_goal_count'.
 function World:determineWinningConditions()
-  local winning_goal_count = 0
-  -- No conditions if in free build mode!
-  if self.free_build_mode then
-    self.goals = {}
-    self.winning_goal_count = winning_goal_count
-    return
-  end
-  -- Determine winning and losing conditions
-  local world_goals = {}
-
-  -- There might be no winning criteria (i.e. the demo), then
-  -- we don't have to worry about the progress report dialog
-  -- since it doesn't exist anyway.
-  local win = self.map.level_config.win_criteria
-  if win then
-    for _, values in pairs(win) do
-      if values.Criteria ~= 0 then
-        winning_goal_count = winning_goal_count + 1
-        local crit_name = self.level_criteria[values.Criteria].name
-        world_goals[crit_name] = {
-          name = crit_name,
-          win_value = values.Value,
-          boundary = values.Bound,
-          criterion = values.Criteria,
-          max_min_win = values.MaxMin,
-          group = values.Group,
-          number = winning_goal_count,
-        }
-        world_goals[#world_goals + 1] = world_goals[crit_name]
-      end
-    end
-  end
-  -- Likewise there might be no losing criteria (i.e. the demo)
-  local lose = self.map.level_config.lose_criteria
-  if lose then
-    for _, values in pairs(lose) do
-      if values.Criteria ~= 0 then
-        local crit_name = self.level_criteria[values.Criteria].name
-        if not world_goals[crit_name] then
-          world_goals[crit_name] = {number = #world_goals + 1, name = crit_name}
-          world_goals[#world_goals + 1] = world_goals[crit_name]
-        end
-        world_goals[crit_name].lose_value = values.Value
-        world_goals[crit_name].boundary = values.Bound
-        world_goals[crit_name].criterion = values.Criteria
-        world_goals[crit_name].max_min_lose = values.MaxMin
-        world_goals[crit_name].group = values.Group
-        world_goals[world_goals[crit_name].number].lose_value = values.Value
-        world_goals[world_goals[crit_name].number].boundary = values.Bound
-        world_goals[world_goals[crit_name].number].criterion = values.Criteria
-        world_goals[world_goals[crit_name].number].max_min_lose = values.MaxMin
-        world_goals[world_goals[crit_name].number].group = values.Group
-      end
-    end
-  end
-
-  -- Order the criteria (some icons in the progress report shouldn't be next to each other)
-  table.sort(world_goals, function(a,b) return a.criterion < b.criterion end)
-  self.goals = world_goals
-  self.winning_goal_count = winning_goal_count
+  self.goals = {}
+  self.winning_goal_count = 0
+  return
 end
 
 --! Find the rooms available at the level.
@@ -1423,49 +1366,8 @@ end
 --! corresponds to the limit the player passed.
 --!param player_no The index of the player to check in the world's list of hospitals
 function World:checkWinningConditions(player_no)
-  -- If there are no goals at all, do nothing.
-  if #self.goals == 0 then
-    return {state = "nothing"}
-  end
-
-  -- Default is to win.
-  -- As soon as a goal that doesn't support this is found it is changed.
-  local result = {state = "win"}
-  local hospital = self.hospitals[player_no]
-
-  -- Go through the goals
-  for _, goal in ipairs(self.goals) do
-    local current_value = hospital[goal.name]
-    -- If max_min is 1 the value must be > than the goal condition.
-    -- If 0 it must be < than the goal condition.
-    if goal.lose_value then
-      local max_min = goal.max_min_lose == 1 and 1 or -1
-      -- Is this a minimum/maximum that has been passed?
-      -- This is actually not entirely correct. A lose condition
-      -- for balance at -1000 will make you lose if you have exactly
-      -- -1000 too, but how often does that happen? Probably not more often
-      -- than having exactly e.g. 200 in reputation,
-      -- which is handled correctly.
-      if (current_value - goal.lose_value) * max_min > 0 then
-        result.state = "lose"
-        result.reason = goal.name
-        result.limit = goal.lose_value
-        break
-      end
-    end
-    if goal.win_value then
-      local max_min = goal.max_min_win == 1 and 1 or -1
-      -- Special case for balance, subtract any loans!
-      if goal.name == "balance" then
-        current_value = current_value - hospital.loan
-      end
-      -- Is this goal not fulfilled yet?
-      if (current_value - goal.win_value) * max_min <= 0 then
-        result.state = "nothing"
-      end
-    end
-  end
-  return result
+  -- there are no goals at all, do nothing.
+  return {state = "nothing"}
 end
 
 --! Process that the given player number won the game.

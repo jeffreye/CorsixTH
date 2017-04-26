@@ -35,10 +35,12 @@ local function action_check_forms_start(action, humanoid)
   -- process forms
   local forms_process_time =  math.random(1, 5)
   local index = 0
-  if humanoid.forms ~= nil then
+  if humanoid.forms == nil then
     humanoid:queueAction(MeanderAction())
     humanoid:finishAction(action)
     return
+  else
+    index = #humanoid.forms
   end
 
   local  find_reception_desk = --[[persistable:clerk_find_best_desk]] function()
