@@ -161,6 +161,7 @@ function UIHireStaff:draw(canvas, x, y)
   font:draw(canvas, #staff.Nurse       , x + 16, y + 137, 26, 0)
   font:draw(canvas, #staff.Handyman    , x + 16, y + 216, 26, 0)
   font:draw(canvas, #staff.Receptionist, x + 16, y + 295, 26, 0)
+  font:draw(canvas, #staff.Clerk, x + 16, y + 375, 26, 0)
   if self.category and self.current_index then
     local profile = staff[self.category]
     profile = profile and profile[self.current_index]

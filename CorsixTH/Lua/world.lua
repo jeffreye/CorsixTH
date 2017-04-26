@@ -887,13 +887,13 @@ end
 -- in-game tick and the first is the number of hours to progress when this
 -- happens.
 local tick_rates = {
-  ["Pause"]              = {0, 1},
-  ["Slowest"]            = {1, 3},
-  ["Slower"]             = {1, 1},
-  ["Normal"]             = {3, 1},
-  ["Max speed"]          = {5, 1},
-  ["And then some more"] = {8, 1},
-  ["Speed Up"]           = {20, 1},
+      ["Pause"]              = {0, 1},
+      ["Slowest"]            = {1, 9},
+      ["Slower"]             = {1, 5},
+      ["Normal"]             = {1, 3},
+      ["Max speed"]          = {5, 1},
+      ["And then some more"] = {20, 1},
+      ["Speed Up"]           = {100, 1},
 }
 
 function World:changeTickRates(rates)

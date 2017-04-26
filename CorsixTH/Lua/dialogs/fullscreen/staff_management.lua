@@ -59,6 +59,7 @@ function UIStaffManagement:UIStaffManagement(ui)
     self:setCategory(name)
   end
   self.categories = {
+    self:addPanel(0, 0, 15):makeToggleButton(0, 0, 58, 58, 1, category, "Clerk"):setTooltip(_S.tooltip.hire_staff_window.clerks),
     self:addPanel(0, 53, 15):makeToggleButton(0, 0, 58, 58, 1, category, "Doctor"):setTooltip(_S.tooltip.staff_list.doctors),
     self:addPanel(0, 119, 15):makeToggleButton(0, 0, 58, 58, 1, category, "Nurse"):setTooltip(_S.tooltip.staff_list.nurses),
     self:addPanel(0, 185, 15):makeToggleButton(0, 0, 58, 58, 1, category, "Handyman"):setTooltip(_S.tooltip.staff_list.handymen),
@@ -169,6 +170,7 @@ function UIStaffManagement:updateStaffList(staff_member_removed)
     Nurse = {},
     Handyman = {},
     Receptionist = {},
+    Clerk = {},
   }
   staff_members.Surgeon = staff_members.Doctor
   for _, staff in ipairs(hosp.staff) do
@@ -242,6 +244,9 @@ function UIStaffManagement:draw(canvas, x, y)
   titles:draw(canvas, _S.staff_list.skill,       x + 530, y + 31, 95, 0)
 
   -- Number of employees
+  titles:draw(canvas, #self.staff_members["Clerk"], x + 20, y + 57)
+  titles:draw(canvas, "Clerks", x + 9, y + 37)
+
   titles:draw(canvas, #self.staff_members["Doctor"], x + 79, y + 57)
   titles:draw(canvas, #self.staff_members["Nurse"], x + 145, y + 57)
   titles:draw(canvas, #self.staff_members["Handyman"], x + 211, y + 57)

@@ -32,7 +32,7 @@ local col_bg = {
   blue = 200,
 }
 
-function UIPatientStats:UIPatientStats(ui, world)
+function UIPatientStats:UIPatientStats(ui)
   self:UIResizable(ui, 225, 50, col_bg)
 
   local app = ui.app
@@ -41,7 +41,7 @@ function UIPatientStats:UIPatientStats(ui, world)
   self:setDefaultPosition(-40, -300)
   self.white_font = app.gfx:loadFont("QData", "Font01V")
   
-  self.world = world
+  self.world = app.world
 
 end
 
@@ -56,24 +56,24 @@ function UIPatientStats:draw(canvas, x, y)
   
   if self.world.patient_stats then
   for _, stats in ipairs(self.world.patient_stats) do
-	num_patients_with_stats = num_patients_with_stats + 1
-	if stats["cycle_time"] then
-	  cycle_total = cycle_total + stats["cycle_time"]
-	end
-	if stats["waiting_time"] then
-	  waiting_total = waiting_total + stats["waiting_time"]
-	end
+    num_patients_with_stats = num_patients_with_stats + 1
+    if stats["cycle_time"] then
+      cycle_total = cycle_total + stats["cycle_time"]
+    end
+    if stats["waiting_time"] then
+      waiting_total = waiting_total + stats["waiting_time"]
+    end
   end
     cycle_total = cycle_total / num_patients_with_stats
     waiting_total = waiting_total / num_patients_with_stats
   end
   
   for _, entity in ipairs(self.world.entities) do
-	if class.is(entity, Patient) then
-	  if entity:isInHospital() then
-		num_patients_in_hospital = num_patients_in_hospital + 1
-	  end
-	end
+    if class.is(entity, Patient) then
+      if entity:isInHospital() then
+      num_patients_in_hospital = num_patients_in_hospital + 1
+      end
+    end
   end
   
   

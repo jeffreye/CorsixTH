@@ -73,7 +73,7 @@ RschReqd how much research is required to discover the treatment room for the di
 NOTE:  Most visual diseases cannot currently be part of an epidemic.  Which can be included can be checked in the disease files
 
 #expertise[1].ContRate.Known.RschReqd   0   1      0                  GENERAL_PRACTICE
-#expertise[2].ContRate.Known.RschReqd   0   1      40000              BLOATY_HEAD
+#expertise[2].ContRate.Known.RschReqd   0   0      40000              BLOATY_HEAD
 #expertise[3].ContRate.Known.RschReqd   0   0      40000              HAIRYITUS
 #expertise[4].ContRate.Known.RschReqd   0   0      60000              ELVIS
 #expertise[5].ContRate.Known.RschReqd   0   0      60000              INVIS
@@ -117,7 +117,7 @@ NOTE:  Most visual diseases cannot currently be part of an epidemic.  Which can 
 #expertise[43].Known.RschReqd           1   20000  I_D_SHRINK         DIAGNOSIS
 
 | Objects available | Available from the start | Strength | Available for this level | Comment
-#objects[9].StartAvail.StartStrength.AvailableForLevel   1  8   1  Inflator Machine
+#objects[9].StartAvail.StartStrength.AvailableForLevel   0  8   0  Inflator Machine
 #objects[13].StartAvail.StartStrength.AvailableForLevel  1  13  1  Cardiogram
 #objects[14].StartAvail.StartStrength.AvailableForLevel  0  12  1  Scanner
 #objects[22].StartAvail.StartStrength.AvailableForLevel  0  9   1  Ultrascan
@@ -139,7 +139,7 @@ NOTE:  Most visual diseases cannot currently be part of an epidemic.  Which can 
 
 Value represents the proportions of the disease - not implemented
 
-#visuals[0]       1   I_BLOATY_HEAD
+#visuals[0]       0   I_BLOATY_HEAD
 #visuals[1]       21  I_HAIRYITUS
 #visuals[2]       7   I_ELVIS
 #visuals[3]       9   I_INVIS

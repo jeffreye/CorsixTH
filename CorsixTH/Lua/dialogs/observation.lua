@@ -67,7 +67,8 @@ function UIObservation:UIObservation(ui)
   self:setDefaultPosition(0, 0.5)
 
   self.observation_panel =
-    self:addBevelPanel(0, 0, 180, 40, col_bg):setLabel("Observation")
+    self:addBevelPanel(0, 0, 180, 40, col_bg):setLabel("Show Patient Stats")
+    :makeToggleButton(0, 0, 180, 40, nil, self.world.displayPatientStats)
 
   self.start_date = 0
   self.start_hour = 8
@@ -118,7 +119,7 @@ function UIObservation:toggleObservationMode( btn,checked,state )
     self.previous_time_limit = self.time_limit
     self.start_date = self.world.day
     self.observation_button:setVisible(false)
-    self.world:setSpeed("Normal")
+    self.world:setSpeed("Speed Up")
   end
 end
 
