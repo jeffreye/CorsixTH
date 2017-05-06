@@ -107,6 +107,10 @@ function UIObservation:UIObservation(ui)
 	
 	--Clock
 	self.clock_panel = self:addBevelPanel(0, 250, 180, 40, col_bg):setLabel("8:00 AM")
+
+  -- One more patient
+  self:addBevelPanel(0, 300, 180, 40, col_bg):setLabel("One more patient")
+    :makeButton(0, 0, 180, 40, nil, self.morePatient)
 end
 
 function UIObservation:hitTest(x, y, x_offset)
@@ -121,6 +125,10 @@ function UIObservation:toggleObservationMode( btn,checked,state )
     self.observation_button:setVisible(false)
     self.world:setSpeed("Speed Up")
   end
+end
+
+function UIObservation:morePatient()
+  self.world:spawnPatient()
 end
 
 function UIObservation:buttonSave()

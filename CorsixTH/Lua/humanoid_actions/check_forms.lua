@@ -36,6 +36,7 @@ local function action_check_forms_start(action, humanoid)
   local forms_process_time =  math.random(1, 5)
   local index = 0
   if humanoid.forms == nil then
+    humanoid.working = false
     humanoid:queueAction(MeanderAction())
     humanoid:finishAction(action)
     return

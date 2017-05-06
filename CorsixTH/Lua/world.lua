@@ -1001,7 +1001,8 @@ function World:onTick()
           self.month = 12
           -- It is crucial that the annual report gets to initialize before onEndYear is called.
           -- Yearly statistics are reset there.
-          self.ui:addWindow(UIAnnualReport(self.ui, self))
+          
+          -- self.ui:addWindow(UIAnnualReport(self.ui, self))
           self:onEndYear()
           self.year = self.year + 1
           self.month = 1
